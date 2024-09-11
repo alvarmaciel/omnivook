@@ -50,7 +50,7 @@ jobs:
         if [ ${{ inputs.archive }} ]; then
           ARCHIVE_FLAG="--archive"
         fi
-
+        echo "SINCE DATE: $SINCE_DATE"
         python omnivook.py --since $SINCE_DATE $ARCHIVE_FLAG
 
     - name: Set up EPUB file name
