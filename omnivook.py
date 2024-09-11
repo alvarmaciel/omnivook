@@ -242,7 +242,7 @@ def make_book(since=YESTERDAY, output_format="epub", authors_pages: list | None 
     os.environ.setdefault("EPUB_AUTHORS", ",".join(authors_pages))
     logger.info(f"[bold]Generating {output}")
     # Print title of ebook to be captured by github actions
-    print(f"PROJECT_NAME={output}")
+    print(f"PROJECT_NAME={title}")
     run_sphinx_build()
 
 
