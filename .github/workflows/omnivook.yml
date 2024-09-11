@@ -51,10 +51,12 @@ jobs:
           ARCHIVE_FLAG="--archive"
         fi
         echo "SINCE DATE: $SINCE_DATE"
+        echo "Project Name: $env.PROJECT_NAME"
         python omnivook.py --since $SINCE_DATE $ARCHIVE_FLAG
 
     - name: Set up EPUB file name
       run: |
+        echo "Project Name: $env.PROJECT_NAME"
         file_name="${{ env.PROJECT_NAME }}.epub"
         echo "EPUB file name: $file_name"
         echo "FILE_NAME=$file_name" >> $GITHUB_ENV
