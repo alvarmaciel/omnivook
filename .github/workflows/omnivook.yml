@@ -52,7 +52,9 @@ jobs:
         fi
         echo "SINCE DATE: $SINCE_DATE"
         echo "Project Name: $env.PROJECT_NAME"
-        python omnivook.py --since $SINCE_DATE $ARCHIVE_FLAG
+        project_name=$(python omnivook.py --since $SINCE_DATE $ARCHIVE_FLAG | grep "PROJECT_NAME=" | cut -d '=' -f2)
+        echo "PROJECT_NAME=$project_name" >> $GITHUB_ENV
+
 
     - name: Set up EPUB file name
       run: |
