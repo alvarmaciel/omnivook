@@ -107,4 +107,7 @@ jobs:
 
     - name: No eBook send
       if: ${{ startsWith(steps.run_omnivook.outputs.last_line, 'ERROR') }}
-      run: echo "No saved today or an Error ocurred: ${{ steps.run_omnivook.outputs.last_line }}"
+      env:
+        OUTPUT_LAST_LINE: ${{ steps.run_omnivook.outputs.last_line }}
+      run: |
+        echo "No saved today or an Error ocurred: $OUTPUT_LAST_LINE"
