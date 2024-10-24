@@ -87,9 +87,7 @@ jobs:
         
         
     - name: Send eBook via email
-      env:
-        OUTPUT_LAST_LINE: ${{ steps.run_omnivook.outputs.last_line }}
-      if: ${{ !contains($OUTPUT_LAST_LINE, 'ERROR') }}
+      if: ${{ !contains(steps.run_omnivook.outputs.last_line }}
       uses: dawidd6/action-send-mail@v3
       with:
         # setup your mail server connection
@@ -108,8 +106,6 @@ jobs:
         attachments: "*.epub"
 
     - name: No eBook send
-      env:
-        OUTPUT_LAST_LINE: ${{ steps.run_omnivook.outputs.last_line }}
-      if: ${{ contains($OUTPUT_LAST_LINE, 'ERROR') }}
+      if: ${{ contains(steps.run_omnivook.outputs.last_line }}
       run: |
         echo "No saved today or an Error ocurred: $OUTPUT_LAST_LINE"
