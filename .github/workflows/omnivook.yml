@@ -83,11 +83,13 @@ jobs:
 
         echo "Last line: $last_line"
         # Set the last line as an output
-        echo "::set-output name=last_line::$last_line"
+        echo "last_line=$last_line" >> $GITHUB_OUTPUT
         
         
     - name: Send eBook via email
-      if: ${{ !startsWith(steps.run_omnivook.outputs.last_line, 'ERROR') }}
+      env:
+        OUTPUT_LAST_LINE: ${{ steps.run_omnivook.outputs.last_line }}
+      if: ${{ !contains($OUTPUT_LAST_LINE, 'ERROR') }}
       uses: dawidd6/action-send-mail@v3
       with:
         # setup your mail server connection
@@ -106,8 +108,8 @@ jobs:
         attachments: "*.epub"
 
     - name: No eBook send
-      if: ${{ startsWith(steps.run_omnivook.outputs.last_line, 'ERROR') }}
       env:
         OUTPUT_LAST_LINE: ${{ steps.run_omnivook.outputs.last_line }}
+      if: ${{ contains($OUTPUT_LAST_LINE, 'ERROR') }}
       run: |
         echo "No saved today or an Error ocurred: $OUTPUT_LAST_LINE"
